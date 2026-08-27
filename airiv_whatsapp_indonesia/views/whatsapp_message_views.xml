@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_airiv_whatsapp_message_tree" model="ir.ui.view">
+            <field name="name">airiv.whatsapp.message.list</field>
+            <field name="model">airiv.whatsapp.message</field>
+            <field name="arch" type="xml">
+                <list string="WhatsApp Message Audit Logs" decoration-info="state == 'simulated'" decoration-success="state == 'sent'" decoration-danger="state == 'failed'">
+                    <field name="create_date" string="Sent Timestamp"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="mobile_sanitized"/>
+                    <field name="state" widget="badge"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_airiv_whatsapp_message_form" model="ir.ui.view">
+            <field name="name">airiv.whatsapp.message.form</field>
+            <field name="model">airiv.whatsapp.message</field>
+            <field name="arch" type="xml">
+                <form string="WhatsApp Message Detail">
+                    <header>
+                        <button name="action_send" string="Re-send / Retry" type="object" class="btn-primary" invisible="state == 'sent'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,simulated,sent"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Recipient Information">
+                                <field name="partner_id"/>
+                                <field name="mobile_raw"/>
+                                <field name="mobile_sanitized"/>
+                            </group>
+                            <group string="Document Source &amp; Gateway">
+                                <field name="res_model"/>
+                                <field name="res_id"/>
+                                <field name="provider"/>
+                                <field name="attachment_url"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Message Text">
+                                <field name="body" readonly="state in ('sent', 'simulated')"/>
+                            </page>
+                            <page string="API Response Payload">
+                                <field name="response_payload" widget="ace"/>
+                                <field name="error_message" invisible="not error_message"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_airiv_whatsapp_message" model="ir.actions.act_window">
+            <field name="name">WhatsApp Message Logs</field>
+            <field name="res_model">airiv.whatsapp.message</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

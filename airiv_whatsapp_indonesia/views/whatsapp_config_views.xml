@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_airiv_whatsapp_config_form" model="ir.ui.view">
+            <field name="name">airiv.whatsapp.config.form</field>
+            <field name="model">airiv.whatsapp.config</field>
+            <field name="arch" type="xml">
+                <form string="WhatsApp Gateway Configuration">
+                    <sheet>
+                        <group>
+                            <group string="Gateway Credentials &amp; Mode">
+                                <field name="name"/>
+                                <field name="provider"/>
+                                <field name="environment" widget="radio"/>
+                            </group>
+                            <group string="F詡nte REST API Details" invisible="provider != 'fonnte'">
+                                <field name="fonnte_api_token" password="True" placeholder="Paste your Fonnte API token"/>
+                                <field name="fonnte_endpoint"/>
+                            </group>
+                            <group string="WAHA Docker Details" invisible="provider != 'waha'">
+                                <field name="waha_endpoint"/>
+                                <field name="waha_session"/>
+                                <field name="waha_api_key" password="True"/>
+                            </group>
+                        </group>
+                        <group string="Automated Event Triggers">
+                            <group>
+                                <field name="auto_send_sale"/>
+                                <field name="auto_send_picking"/>
+                                <field name="auto_send_invoice"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_airiv_whatsapp_config" model="ir.actions.act_window">
+            <field name="name">WhatsApp Settings</field>
+            <field name="res_model">airiv.whatsapp.config</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

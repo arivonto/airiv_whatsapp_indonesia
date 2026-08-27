@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_airiv_whatsapp_config_mgr,airiv.whatsapp.config.mgr,model_airiv_whatsapp_config,base.group_system,1,1,1,1
+access_airiv_whatsapp_template_user,airiv.whatsapp.template.user,model_airiv_whatsapp_template,base.group_user,1,1,1,1
+access_airiv_whatsapp_message_user,airiv.whatsapp.message.user,model_airiv_whatsapp_message,base.group_user,1,1,1,1

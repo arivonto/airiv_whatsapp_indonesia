@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for Messages -->
+        <record id="seq_airiv_whatsapp_message" model="ir.sequence">
+            <field name="name">AIRIV WhatsApp Audit Sequence</field>
+            <field name="code">airiv.whatsapp.message</field>
+            <field name="prefix">WA/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!-- Template 1: Sales Confirmation -->
+        <record id="template_wa_sale_order_confirm" model="airiv.whatsapp.template">
+            <field name="name">Konfirmasi Pesanan Penjualan (SO)</field>
+            <field name="code">sale_order_confirm</field>
+            <field name="body">Halo *{partner_name}*,
+
+Terima kasih telah memesan di *AIRIV Enterprise*. Pesanan Anda *{order_name}* telah dikonfirmasi.
+
+📦 *Detail Pesanan*:
+- Total Tagihan: *{amount_total}*
+- Metode Pengiriman: *{carrier_name}*
+
+💳 Selesaikan pembayaran instan Anda melalui tautan resmi berikut:
+{payment_url}
+
+Terima kasih atas kepercayaan Anda!</field>
+        </record>
+
+        <!-- Template 2: Shipping Dispatch & Biteship Resi -->
+        <record id="template_wa_stock_dispatch" model="airiv.whatsapp.template">
+            <field name="name">Pemberitahuan Pengiriman &amp; Nomor Resi</field>
+            <field name="code">stock_dispatch</field>
+            <field name="body">Halo *{partner_name}*,
+
+Kabar baik! Paket pesanan *{order_name}* telah diserahkan kepada kurir *{carrier_name}*.
+
+🚚 *Nomor Resi (AWB)*: `{resi_number}`
+📍 Lacak posisi pengiriman secara realtime di tautan ini:
+{tracking_url}
+
+Salam hangat,
+*Tim Logistik AIRIV*</field>
+        </record>
+
+        <!-- Template 3: Customer Invoice Billing -->
+        <record id="template_wa_invoice_post" model="airiv.whatsapp.template">
+            <field name="name">Pemberitahuan Tagihan Faktur Pajak</field>
+            <field name="code">invoice_post</field>
+            <field name="body">Halo *{partner_name}*,
+
+Faktur tagihan *{invoice_name}* sebesar *{amount_total}* telah diterbitkan.
+
+📋 *Informasi Tagihan*:
+- Jatuh Tempo: *{due_date}*
+- Nomor Seri Faktur Pajak (NSFP): `{faktur_pajak_number}`
+
+Silakan lakukan pembayaran sebelum tanggal jatuh tempo. Terima kasih!</field>
+        </record>
+    </data>
+</odoo>
