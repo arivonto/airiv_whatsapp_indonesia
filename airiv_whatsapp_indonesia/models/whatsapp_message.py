@@ -8,11 +8,12 @@ from odoo.exceptions import UserError
 
 class AirivWhatsappMessage(models.Model):
     _name = 'airiv.whatsapp.message'
+    _inherit = ['mail.thread']
     _description = 'AIRIV WhatsApp Message Audit Log'
     _order = 'create_date desc'
 
     name = fields.Char(string="Message Reference", required=True, copy=False, default=lambda self: _('New'))
-    partner_id = fields.Many2one('res.partner', string="Recipient Partner")
+    partner_id = fields.Many2one('res.partner', string="Recipient Partner", tracking=True)
     mobile_raw = fields.Char(string="Original Phone Number")
     mobile_sanitized = fields.Char(string="Sanitized Target (628xx)", compute="_compute_sanitized_number", store=True)
     body = fields.Text(string="Message Payload Text", required=True)
@@ -22,7 +23,7 @@ class AirivWhatsappMessage(models.Model):
     provider = fields.Selection([
         ('fonnte', 'Fonnte Cloud REST API'),
         ('waha', 'WAHA Docker Engine'),
-    ], string="Gateway", default='fonnte')
+    ], string="Gateway", default='fonnte', tracking=True)
 
     state = fields.Selection([
         ('draft', 'Draft'),

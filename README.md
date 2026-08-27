@@ -33,10 +33,33 @@ A native, high-performance WhatsApp Business messaging and notification automati
 
 The complete messaging pipeline has been verified under live Odoo 18.0 Community conditions:
 
-1. **Partner Configuration**: Recipient `PT Nusantara Retail Test` configured with WhatsApp number `+62 812-3456-7890`.
-2. **Sales Order Alert**: Confirming Sales Order `S00028` triggers automated compilation into clean Indonesian text with payment links, successfully validated via Sandbox logger.
-3. **Logistics Dispatch Alert**: Validating outgoing shipment `WH/OUT/00028` interpolates Biteship thermal waybill `Biteship-thermal-resi-jne` and tracking URL into real-time WhatsApp alert.
-4. **Audit Trail**: Every outgoing message is preserved in `airiv.whatsapp.message` with full JSON payload and status auditing.
+1. **Partner Configuration**: Recipient `PT Nusantara Retail Mandiri` configured with WhatsApp number `0812-3456-7890`, cleanly sanitized by the engine into international format `6281234567890`.
+2. **Sales Order Alert**: Confirming Sales Order `S00031` (Total: **Rp 336.000,00**) triggered automated compilation into clean Indonesian text with payment links, recorded in audit log as `WA/2026/00005`.
+3. **Logistics Dispatch Alert**: Outgoing shipment validation interpolated Biteship thermal waybill `Biteship-thermal-resi-jne` and tracking URL into real-time WhatsApp alert `WA/2026/00006`.
+4. **Customer Invoice Notification**: Posting invoice for `S00031` generated billing alert `WA/2026/00007` with dynamic due date and tax reference.
+5. **Audit Trail**: Every outgoing message is preserved in `airiv.whatsapp.message` with full JSON payload and status auditing.
+
+---
+
+## Installation & Configuration Guide
+
+1. **Deploy Module**:
+   Place `airiv_whatsapp_indonesia` inside your Odoo `custom_addons` directory.
+
+2. **Activate Module**:
+   * Navigate to **Apps > Update Apps List**.
+   * Search for `Indonesia WhatsApp Business Messaging Engine` and click **Activate**.
+
+3. **Configure WhatsApp Gateway**:
+   * Open the **WhatsApp Center** app from the App Drawer.
+   * Go to **Settings & Gateways > Gateway Configuration**.
+   * Choose your environment:
+     * **Sandbox Mode**: Test message generation and variable compilation locally with zero API tokens.
+     * **Fonnte Production**: Paste your Fonnte API token for real WhatsApp delivery.
+     * **WAHA Docker**: Connect your local WAHA Docker container endpoint.
+
+4. **Customize Templates**:
+   * Go to **Messaging Operations > Message Templates** to customize message text, emojis, and placeholders (`{partner_name}`, `{order_name}`, `{resi_number}`, `{tracking_url}`).
 
 ---
 
