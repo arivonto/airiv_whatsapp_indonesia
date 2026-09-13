@@ -1,172 +1,331 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Indonesia WhatsApp Business Engine & Notification Router</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indonesia WhatsApp Business Messaging Engine</title>
+  <style>
+    :root {
+      --airiv-ink: #07151d;
+      --airiv-teal: #0f766e;
+      --airiv-mint: #ccfbf1;
+      --airiv-line: #d8e7e5;
+      --airiv-muted: #5c6f78;
+      --airiv-soft: #f3faf9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #12232d;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+    .airiv-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 18px 44px;
+    }
+    .hero {
+      overflow: hidden;
+      border-radius: 8px;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 82% 22%, rgba(6, 182, 212, 0.32), transparent 34%),
+        linear-gradient(135deg, #07151d 0%, #0c2430 48%, #0f3f43 100%);
+      border: 1px solid rgba(204, 251, 241, 0.22);
+      box-shadow: 0 20px 54px rgba(7, 21, 29, 0.2);
+      padding: 42px;
+    }
+    .eyebrow {
+      color: var(--airiv-mint);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    h1 {
+      margin: 0;
+      max-width: 840px;
+      font-size: 42px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 820px;
+      margin: 18px 0 0;
+      color: #d7edf0;
+      font-size: 18px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: #e9fffb;
+      background: rgba(15, 118, 110, 0.52);
+      border: 1px solid rgba(204, 251, 241, 0.22);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .section { padding: 34px 0 0; }
+    .section-title {
+      margin: 0 0 14px;
+      color: var(--airiv-ink);
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .section-lead {
+      margin: 0 0 20px;
+      max-width: 850px;
+      color: var(--airiv-muted);
+      font-size: 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      min-height: 100%;
+      padding: 22px;
+      border: 1px solid var(--airiv-line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 10px 28px rgba(7, 21, 29, 0.06);
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--airiv-teal);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      color: var(--airiv-ink);
+      font-size: 20px;
+      line-height: 1.25;
+    }
+    .card p { margin: 0; color: var(--airiv-muted); }
+    .panel {
+      padding: 24px;
+      border-radius: 8px;
+      background: var(--airiv-soft);
+      border: 1px solid var(--airiv-line);
+    }
+    .flow {
+      margin: 0;
+      padding: 22px;
+      overflow-x: auto;
+      border-radius: 8px;
+      color: #d8fff9;
+      background: #07151d;
+      font-family: "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--airiv-line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--airiv-line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      width: 34%;
+      color: var(--airiv-ink);
+      background: #eef8f7;
+    }
+    tr:last-child th, tr:last-child td { border-bottom: 0; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 12px;
+      border-radius: 50%;
+      color: #ffffff;
+      background: var(--airiv-teal);
+      font-weight: 800;
+    }
+    .footer {
+      margin-top: 36px;
+      padding: 22px;
+      border-radius: 8px;
+      color: #d9fffb;
+      background: var(--airiv-ink);
+    }
+    .footer p { margin-bottom: 0; }
+    @media (max-width: 900px) {
+      .hero { padding: 30px 22px; }
+      h1 { font-size: 32px; }
+      .grid,
+      .steps { grid-template-columns: 1fr; }
+      th, td { display: block; width: 100%; }
+      th { border-bottom: 0; }
+    }
+  </style>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; background-color: #ffffff; margin: 0; padding: 16px; box-sizing: border-box;">
+<body>
+  <main class="airiv-page">
+    <section class="hero">
+      <p class="eyebrow">AIRIV Indonesia Communication Rail</p>
+      <h1>Indonesia WhatsApp Business Messaging Engine</h1>
+      <p class="lead">Automated WhatsApp notifications for sales orders, delivery resi, invoices, and Indonesian customer communication workflows inside Odoo 18 Community.</p>
+      <div class="badges">
+        <span class="badge">Odoo 18 Community</span>
+        <span class="badge">Fonnte Gateway</span>
+        <span class="badge">WAHA Sandbox</span>
+        <span class="badge">LGPL-3</span>
+        <span class="badge">AIRIV</span>
+      </div>
+    </section>
 
-<!-- 1. Hero Card (Clean High-Contrast Light Theme) -->
-<div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-top: 6px solid #10b981; border-radius: 12px; padding: 32px 24px; margin-bottom: 32px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-    <div style="display: inline-block; background-color: #10b981; color: #ffffff; font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 20px; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
-        🇮🇩 WHATSAPP BUSINESS NOTIFICATION HUB
-    </div>
-    <h1 style="font-weight: 800; font-size: 28px; color: #0f172a; margin-top: 0; margin-bottom: 12px; line-height: 1.3;">
-        Indonesia WhatsApp Business Engine & Notification Router
-    </h1>
-    <p style="font-size: 15.5px; color: #334155; max-width: 850px; margin: 0 auto 20px auto; line-height: 1.65;">
-        Enterprise WhatsApp communication router for Odoo 18. Integrates Fonnte Cloud, self-hosted WAHA (WhatsApp HTTP API Docker), dynamic message templating, and automated event triggers.
-    </p>
-    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-        <span style="display: inline-block; background-color: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px;">Odoo 18.0 Community</span>
-        <span style="display: inline-block; background-color: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px;">LGPL-3 License</span>
-        <span style="display: inline-block; background-color: #059669; color: #ffffff; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 6px;">100% Free ($0.00)</span>
-        <span style="display: inline-block; background-color: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px;">Zero External Overhead</span>
-    </div>
-</div>
+    <section class="section">
+      <h2 class="section-title">Core Capabilities</h2>
+      <p class="section-lead">This module turns daily Odoo operations into structured WhatsApp communication with controlled templates, phone normalization, gateway routing, and audit evidence.</p>
+      <div class="grid">
+        <article class="card">
+          <strong>Gateway</strong>
+          <h3>Fonnte and WAHA ready</h3>
+          <p>Use Fonnte Cloud REST API for production messaging or connect to WAHA for self-hosted WhatsApp HTTP delivery.</p>
+        </article>
+        <article class="card">
+          <strong>Sandbox</strong>
+          <h3>Safe simulation mode</h3>
+          <p>Test message payloads, templates, merge fields, and audit logs without sending real messages or consuming API tokens.</p>
+        </article>
+        <article class="card">
+          <strong>Indonesia</strong>
+          <h3>Local phone sanitizer</h3>
+          <p>Normalize local numbers such as 08xx and +62 formats into gateway-ready 628xx recipient numbers.</p>
+        </article>
+      </div>
+    </section>
 
-<!-- 2. Showcase Banner Image -->
-<div style="text-align: center; margin-bottom: 36px;">
-    <img src="banner.png" alt="Indonesia WhatsApp Business Engine & Notification Router" style="border-radius: 12px; border: 1px solid #cbd5e1; max-width: 100%; height: auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);"/>
-</div>
+    <section class="section">
+      <h2 class="section-title">Feature & Workflow Automation</h2>
+      <div class="grid">
+        <article class="card">
+          <strong>Sales</strong>
+          <h3>Order confirmation alerts</h3>
+          <p>Send order summaries with customer name, order number, order total, carrier context, and payment link placeholders after sales confirmation.</p>
+        </article>
+        <article class="card">
+          <strong>Logistics</strong>
+          <h3>Delivery and resi updates</h3>
+          <p>Send outgoing delivery notifications with courier, waybill number, and Biteship/RajaOngkir-style tracking URL context.</p>
+        </article>
+        <article class="card">
+          <strong>Accounting</strong>
+          <h3>Invoice and tax messaging</h3>
+          <p>Send invoice alerts with amount, due date, invoice reference, and Faktur Pajak context when customer invoices are posted.</p>
+        </article>
+      </div>
+    </section>
 
-<!-- 3. Core Pillars -->
-<div style="margin-bottom: 36px;">
-    <div style="text-align: center; margin-bottom: 24px;">
-        <h2 style="font-weight: 800; color: #0f172a; font-size: 22px; margin-top: 0; margin-bottom: 6px;">
-            Core Capabilities & Architecture
-        </h2>
-        <p style="color: #475569; font-size: 14.5px; margin: 0;">
-            Engineered specifically for Indonesian statutory compliance and operational efficiency
-        </p>
-    </div>
+    <section class="section">
+      <h2 class="section-title">Architecture</h2>
+      <pre class="flow">Odoo Business Event
+  |
+  |-- sale.order action_confirm
+  |-- stock.picking button_validate
+  |-- account.move action_post
+  v
+AIRIV WhatsApp Automation Layer
+  |
+  |-- airiv.whatsapp.template
+  |-- airiv.whatsapp.config
+  |-- airiv.whatsapp.message
+  v
+Gateway Decision
+  |
+  |-- Sandbox Simulator
+  |-- Fonnte REST API
+  |-- WAHA HTTP API
+  v
+Customer WhatsApp Message + Odoo Audit Log</pre>
+    </section>
 
-    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
-        
-        <div style="flex: 1 1 calc(25% - 16px); min-width: 240px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #cbd5e1; border-top: 5px solid #10b981; border-radius: 10px; padding: 20px; height: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.04); box-sizing: border-box;">
-                <h4 style="font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 10px; font-size: 16px;">Dual Provider Architecture</h4>
-                <p style="font-size: 13.5px; color: #334155; line-height: 1.6; margin-bottom: 14px;">Seamless switching between Fonnte Cloud Gateway and Free Self-Hosted WAHA Docker.</p>
-                <div style="display: inline-block; background-color: #10b981; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Fonnte & WAHA
-                </div>
-            </div>
-        </div>
-        
-        <div style="flex: 1 1 calc(25% - 16px); min-width: 240px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #cbd5e1; border-top: 5px solid #0284c7; border-radius: 10px; padding: 20px; height: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.04); box-sizing: border-box;">
-                <h4 style="font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 10px; font-size: 16px;">Automated Event Triggers</h4>
-                <p style="font-size: 13.5px; color: #334155; line-height: 1.6; margin-bottom: 14px;">Auto-dispatches on Sales confirmation, Delivery status changes, and Invoice generation.</p>
-                <div style="display: inline-block; background-color: #0284c7; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Auto Triggers
-                </div>
-            </div>
-        </div>
-        
-        <div style="flex: 1 1 calc(25% - 16px); min-width: 240px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #cbd5e1; border-top: 5px solid #7c3aed; border-radius: 10px; padding: 20px; height: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.04); box-sizing: border-box;">
-                <h4 style="font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 10px; font-size: 16px;">PDF & Dynamic Attachment</h4>
-                <p style="font-size: 13.5px; color: #334155; line-height: 1.6; margin-bottom: 14px;">Sends PDF invoices, thermal receipts, and tracking barcodes directly to WhatsApp numbers.</p>
-                <div style="display: inline-block; background-color: #7c3aed; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Media Routing
-                </div>
-            </div>
-        </div>
-        
-        <div style="flex: 1 1 calc(25% - 16px); min-width: 240px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #cbd5e1; border-top: 5px solid #d97706; border-radius: 10px; padding: 20px; height: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.04); box-sizing: border-box;">
-                <h4 style="font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 10px; font-size: 16px;">Phone Sanitization (+62)</h4>
-                <p style="font-size: 13.5px; color: #334155; line-height: 1.6; margin-bottom: 14px;">Automatically cleans and reformats local phone numbers (08... -> +628...).</p>
-                <div style="display: inline-block; background-color: #d97706; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Data Sanitizer
-                </div>
-            </div>
-        </div>
-        
-    </div>
-</div>
+    <section class="section">
+      <h2 class="section-title">Technical Specifications</h2>
+      <table>
+        <tbody>
+          <tr><th>Odoo version</th><td>18.0 Community</td></tr>
+          <tr><th>Module name</th><td>airiv_whatsapp_indonesia</td></tr>
+          <tr><th>License</th><td>LGPL-3</td></tr>
+          <tr><th>Author</th><td>AIRIV</td></tr>
+          <tr><th>Main models</th><td>airiv.whatsapp.config, airiv.whatsapp.template, airiv.whatsapp.message</td></tr>
+          <tr><th>Integrated documents</th><td>Sales Order, Delivery Order, Customer Invoice, Contact</td></tr>
+          <tr><th>Gateway endpoints</th><td>Fonnte REST API and WAHA HTTP API</td></tr>
+          <tr><th>Dependencies</th><td>base, mail, sale, account, stock, airiv_os_core</td></tr>
+          <tr><th>Store assets</th><td>icon.png, banner.png, index.html</td></tr>
+        </tbody>
+      </table>
+    </section>
 
-<!-- 4. Key Enterprise Features -->
-<div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 28px 20px; margin-bottom: 36px;">
-    <h3 style="font-weight: 800; color: #0f172a; font-size: 18px; margin-top: 0; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
-        Key Enterprise Features & Workflow Automation
-    </h3>
-    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
-        
-        <div style="flex: 1 1 calc(50% - 16px); min-width: 280px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-                <h5 style="font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 8px; font-size: 15px;">1. Multi-Template Engine</h5>
-                <p style="color: #334155; font-size: 13.5px; line-height: 1.6; margin: 0;">Customizable message templates with dynamic placeholders (${partner_name}, ${amount_total}).</p>
-            </div>
-        </div>
-        
-        <div style="flex: 1 1 calc(50% - 16px); min-width: 280px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-                <h5 style="font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 8px; font-size: 15px;">2. Sandbox Mock Responder</h5>
-                <p style="color: #334155; font-size: 13.5px; line-height: 1.6; margin: 0;">Simulates message delivery logs in local terminal without consuming live WhatsApp quotas.</p>
-            </div>
-        </div>
-        
-        <div style="flex: 1 1 calc(50% - 16px); min-width: 280px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-                <h5 style="font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 8px; font-size: 15px;">3. Native Chatter Integration</h5>
-                <p style="color: #334155; font-size: 13.5px; line-height: 1.6; margin: 0;">Logs sent WhatsApp messages and delivery statuses directly inside the record Chatter.</p>
-            </div>
-        </div>
-        
-        <div style="flex: 1 1 calc(50% - 16px); min-width: 280px; box-sizing: border-box; margin-bottom: 16px;">
-            <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-                <h5 style="font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 8px; font-size: 15px;">4. Bulk Broadcast Scheduler</h5>
-                <p style="color: #334155; font-size: 13.5px; line-height: 1.6; margin: 0;">Schedules marketing broadcasts, payment reminders, and mass student announcements.</p>
-            </div>
-        </div>
-        
-    </div>
-</div>
+    <section class="section">
+      <h2 class="section-title">Installation Guidance</h2>
+      <div class="steps">
+        <article class="card">
+          <span class="step-number">1</span>
+          <h3>Install the module</h3>
+          <p>Clone the repository on branch 18.0, add the module folder to your addons path, restart Odoo, and update the apps list.</p>
+        </article>
+        <article class="card">
+          <span class="step-number">2</span>
+          <h3>Start in sandbox</h3>
+          <p>Create or activate a gateway configuration in sandbox mode and confirm that templates generate correct message logs.</p>
+        </article>
+        <article class="card">
+          <span class="step-number">3</span>
+          <h3>Enable production rails</h3>
+          <p>After sandbox validation, add Fonnte or WAHA credentials and enable automation flags for sales, delivery, and invoice workflows.</p>
+        </article>
+      </div>
+    </section>
 
-<!-- 5. Technical Specifications Table -->
-<div style="margin-bottom: 36px;">
-    <h3 style="font-weight: 800; color: #0f172a; font-size: 18px; margin-top: 0; margin-bottom: 14px;">
-        Module Technical Specifications
-    </h3>
-    <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; border: 1px solid #cbd5e1; background-color: #ffffff;">
-            <tbody>
-                <tr style="border-bottom: 1px solid #cbd5e1;">
-                    <td style="font-weight: 700; width: 30%; background-color: #f1f5f9; color: #0f172a; padding: 12px 16px; border-right: 1px solid #cbd5e1;">Framework Compatibility</td>
-                    <td style="color: #0f172a; padding: 12px 16px;">Odoo 18.0 Community Edition (OWL 2.0 & App Drawer Native)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #cbd5e1;">
-                    <td style="font-weight: 700; background-color: #f1f5f9; color: #0f172a; padding: 12px 16px; border-right: 1px solid #cbd5e1;">License & Price</td>
-                    <td style="color: #0f172a; padding: 12px 16px;">GNU LGPL-3 &bull; <strong style="color: #059669;">Free ($0.00)</strong></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #cbd5e1;">
-                    <td style="font-weight: 700; background-color: #f1f5f9; color: #0f172a; padding: 12px 16px; border-right: 1px solid #cbd5e1;">Dependencies</td>
-                    <td style="color: #0f172a; padding: 12px 16px;"><code style="background-color: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-weight: 600;">base, mail, account, sale</code></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #cbd5e1;">
-                    <td style="font-weight: 700; background-color: #f1f5f9; color: #0f172a; padding: 12px 16px; border-right: 1px solid #cbd5e1;">Regulatory Standards</td>
-                    <td style="color: #0f172a; padding: 12px 16px;">Meta WhatsApp Business Cloud API, WAHA Core v2026, Fonnte REST API v1</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: 700; background-color: #f1f5f9; color: #0f172a; padding: 12px 16px; border-right: 1px solid #cbd5e1;">Developer</td>
-                    <td style="color: #0f172a; padding: 12px 16px;">AIRIV (<a href="https://airiv.id" target="_blank" style="color: #0284c7; text-decoration: underline; font-weight: 600;">https://airiv.id</a>)</td>
-                </tr>
-            </tbody>
+    <section class="section">
+      <h2 class="section-title">Author & Contact</h2>
+      <div class="panel">
+        <table>
+          <tbody>
+            <tr><th>Author</th><td>AIRIV</td></tr>
+            <tr><th>Website</th><td>https://airiv.id</td></tr>
+            <tr><th>GitHub</th><td>https://github.com/arivonto</td></tr>
+            <tr><th>Repository</th><td>https://github.com/arivonto/airiv_whatsapp_indonesia</td></tr>
+          </tbody>
         </table>
-    </div>
-</div>
+      </div>
+    </section>
 
-<!-- 6. Footer -->
-<div style="text-align: center; padding: 20px 0; border-top: 1px solid #cbd5e1; color: #475569; font-size: 13.5px;">
-    <p style="margin-bottom: 8px; color: #334155;">
-        Developed for Indonesian Businesses & Enterprises &bull; <strong>AIRIV</strong>
-    </p>
-    <a href="https://airiv.id" target="_blank" style="display: inline-block; background-color: #0f172a; color: #ffffff; font-weight: 700; padding: 7px 18px; border-radius: 6px; text-decoration: none; font-size: 12.5px;">
-        Visit airiv.id
-    </a>
-</div>
-
+    <section class="footer">
+      <strong>AIRIV Odoo Apps Store Package</strong>
+      <p>This listing package includes refreshed documentation, icon, banner, and technical positioning for the AIRIV WhatsApp automation module.</p>
+    </section>
+  </main>
 </body>
 </html>
