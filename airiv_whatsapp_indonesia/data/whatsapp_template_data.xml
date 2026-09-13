@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
     <data noupdate="1">
         <!-- Sequence for Messages -->
         <record id="seq_airiv_whatsapp_message" model="ir.sequence">
@@ -57,5 +58,6 @@ Faktur tagihan *{invoice_name}* sebesar *{amount_total}* telah diterbitkan.
 
 Silakan lakukan pembayaran sebelum tanggal jatuh tempo. Terima kasih!</field>
         </record>
+    </data>
     </data>
 </odoo>

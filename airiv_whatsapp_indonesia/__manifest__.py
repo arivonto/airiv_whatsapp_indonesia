@@ -18,10 +18,11 @@ Indonesia WhatsApp Business Automation & Messaging Engine for Odoo 18 Community.
 """,
     'author': 'Riv Cloud Management',
     'website': 'https://airiv.id',
+    'url': 'https://github.com/arivonto/airiv_whatsapp_indonesia/blob/18.0/static/description/index.html',
     'license': 'LGPL-3',
     'price': 0.0,
     'currency': 'EUR',
-    'depends': ['base', 'mail', 'sale', 'account', 'stock'],
+    'depends': ['base', 'mail', 'sale', 'account', 'stock', 'airiv_os_core'],
     'data': [
         'security/ir.model.access.csv',
         'data/whatsapp_template_data.xml',

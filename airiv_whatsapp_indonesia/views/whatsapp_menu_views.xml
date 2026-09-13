@@ -2,9 +2,9 @@
 <odoo>
     <data>
         <menuitem id="menu_airiv_whatsapp_root"
-                  name="WhatsApp Center"
-                  action="action_airiv_whatsapp_message"
-                  web_icon="airiv_whatsapp_indonesia,static/description/icon.png"
+                  name="AIRIV WhatsApp Center"
+                  action="airiv_os_core.action_airiv_launchpad_whatsapp"
+                  web_icon="airiv_whatsapp_indonesia,static/description/airiv_store_icon_128.png"
                   sequence="39"/>
 
         <menuitem id="menu_airiv_whatsapp_operations"
